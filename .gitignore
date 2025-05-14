@@ -1,0 +1,150 @@
+#################################
+# Node.js / Express
+#################################
+
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.test
+.env.*
+
+# Build output
+dist/
+build/
+
+# Debug files
+*.swp
+
+# Runtime-generated files
+pids/
+tmp/
+temp/
+
+# Package manager stuff
+.npm/
+
+# Coverage and testing
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# PM2 process manager
+pids/
+
+#################################
+# React (Frontend)
+#################################
+
+# Build output
+/build
+/.next
+/.cache
+.cache/
+
+# Dependency directories
+/node_modules
+
+# Misc
+*.tgz
+*.env.local
+.env.production
+.env.development
+.env.*
+
+# Vite/Parcel
+*.vitepress/dist
+.vite/
+parcel-cache/
+
+# React Native / Expo (if used)
+.expo/
+.expo-shared/
+
+#################################
+# Python
+#################################
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# pyenv
+.python-version
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+
+# Environments
+*.env
+*.env.*
+
+#################################
+# OS / Editor / Misc
+#################################
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# Local secrets or test uploads
+uploads/
+public/uploads/
