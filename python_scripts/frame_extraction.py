@@ -5,15 +5,15 @@ from datetime import datetime
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
-import os
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
-cloudinary.config( 
-    cloud_name = "dzqtx9kms", 
-    api_key = os.environ.get("CLOUDINARY_API_KEY"),
-    api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
+cloudinary.config(
+    cloud_name="dzqtx9kms",
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
     secure=True
 )
 
@@ -98,6 +98,30 @@ def extract_frames(video_path, frame_interval=2, resize_ratio=0.5, compression_q
     print(f"✅ Finished. Uploaded {captured} frames.")
     return uploaded_urls
 
+# ---------- Analyze Image Function ----------
+def analyze_image(image_url):
+    """
+    Send a POST request to the local analyze-image API endpoint.
+
+    Args:
+        image_url (str): The URL of the image to analyze.
+
+    Returns:
+        str: The analysis result or error message.
+    """
+    try:
+        response = requests.post(
+            "http://localhost:3000/analyze-image",
+            json={"imageUrl": image_url},
+            timeout=60
+        )
+        if response.status_code == 200:
+            return response.json().get("result", "")
+        else:
+            return f"API error {response.status_code}: {response.text}"
+    except Exception as e:
+        return f"Request error: {e}"
+
 # ---------- Main Execution ----------
 if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -106,7 +130,7 @@ if __name__ == "__main__":
     print(f"🎞️ Starting extraction from: {video_path}")
     uploaded_frame_urls = extract_frames(
         video_path=video_path,
-        frame_interval=30,  # seconds between captures
+        frame_interval=40,  # seconds between captures
         resize_ratio=0.5,
         compression_quality=50,
         debug=True
@@ -118,5 +142,11 @@ if __name__ == "__main__":
             for url in uploaded_frame_urls:
                 f.write(url + "\n")
         print(f"🔗 Frame URLs saved to: {output_file}")
+
+        # Analyze each uploaded frame using the API
+        for url in uploaded_frame_urls:
+            print(f"\n🔍 Analyzing frame: {url}")
+            analysis = analyze_image(url)
+            print(f"Analysis result:\n{analysis}\n")
     else:
         print("⚠️ No frames uploaded.")
